@@ -13,8 +13,23 @@ The implementation ensured deploying Deep Learning techniques to enhance the pre
 ## Installation
 
 In order to run the app, follow these steps:
-1. Clone repo
+1. Clone repository
 2. Change directory to project's directory
 `git clone https://github.com/moayadeldin/app-diabetes-monitoring` then `cd app-diabetes-monitoring`
 3. You need to have Flutter installed in your device in order to run the application properly, if not you can follow with their documentation [here](https://docs.flutter.dev/get-started/install)
-4. Open the app by typing `flutter run` command, it is recommended to run it through an android emulator in order to visualize the UI properly.
+4. In order to use the predictive ML-based feature, you need to install Flask API and the required packages.
+   4.1 Change directory to flask-api directory through `cd flask-app`
+   4.2 Install the required packages through the command `pip install -r requirements.txt` 
+   Note:  For step 4.2 it is recommended to use a virtual environment in order to avoid any OS-related errers.
+   
+## Usage
+* To start the app by typing `flutter run` command, it is recommended to run it through an android emulator in order to visualize the UI properly.
+* In a different terminal, run `cd flask-app` command (activate the virtual envrionment before if you use any) then type `python app.py`
+
+## Note
+In order to see the work used in coding the Feedforward Neural Network used in predictive analysis and preprocessing & EDA that was required before this step, you may find it in the Jupyter Notebook named Application_Dataset_EDA_&_ML_Model in `notebooks` folder in the repository.
+
+
+##Citation
+
+Deepali Javale, Sharmishta Desai, July 7, 2021, "Dataset for People for their Blood Glucose Level with their Superficial body feature readings.", IEEE Dataport, doi: https://dx.doi.org/10.21227/c4pp-6347.
