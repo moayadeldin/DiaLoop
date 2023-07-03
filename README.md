@@ -19,8 +19,11 @@ In order to run the app, follow these steps:
 `git clone https://github.com/moayadeldin/app-diabetes-monitoring` then `cd app-diabetes-monitoring`
 3. You need to have Flutter installed in your device in order to run the application properly, if not you can follow with their documentation [here](https://docs.flutter.dev/get-started/install)
 4. In order to use the predictive ML-based feature, you need to install Flask API and the required packages.
+   
    4.1 Change directory to flask-api directory through `cd flask-app`
+
    4.2 Install the required packages through the command `pip install -r requirements.txt` 
+
    Note:  For step 4.2 it is recommended to use a virtual environment in order to avoid any OS-related errers.
    
 ## Usage
