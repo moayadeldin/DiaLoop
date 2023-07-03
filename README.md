@@ -1,6 +1,7 @@
 # Diabetes Monitoring App
 
-Android/iOS Application offering diabetes monitoring, management and prediction allowing the patient to actively get insights of his current health state. The implementation ensured deploying Deep Learning techniques to enhance the prediction ability based on the patient data.
+Android/iOS Application offering diabetes monitoring, management and prediction allowing the patient to actively get insights of his current health state. 
+The implementation ensured deploying Deep Learning techniques to enhance the prediction ability based on the patient data.
 
 ## Features
 
