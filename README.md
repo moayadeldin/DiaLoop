@@ -1,6 +1,7 @@
 # Diabetes Monitoring App
 
 Android/iOS Application offering diabetes monitoring, management and prediction allowing the patient to actively get insights of his current health state. 
+
 The implementation ensured deploying Deep Learning techniques to enhance the prediction ability based on the patient data.
 
 ## Features
@@ -30,6 +31,6 @@ In order to run the app, follow these steps:
 In order to see the work used in coding the Feedforward Neural Network used in predictive analysis and preprocessing & EDA that was required before this step, you may find it in the Jupyter Notebook named Application_Dataset_EDA_&_ML_Model in `notebooks` folder in the repository.
 
 
-##Citation
+## Citation
 
 Deepali Javale, Sharmishta Desai, July 7, 2021, "Dataset for People for their Blood Glucose Level with their Superficial body feature readings.", IEEE Dataport, doi: https://dx.doi.org/10.21227/c4pp-6347.
