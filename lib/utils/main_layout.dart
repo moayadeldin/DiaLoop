@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:phase_1_app/components/fast_check.dart';
+import 'package:phase_1_app/data/data.dart';
+import 'package:phase_1_app/screens/groups.dart';
+import 'package:phase_1_app/screens/meals.dart';
+import 'package:phase_1_app/screens/tabs.dart';
 import 'package:phase_1_app/utils/text.dart';
 import '../screens/meeting_page.dart';
 import '../screens/home.dart';
@@ -21,14 +25,18 @@ class _MainLayoutState extends State<MainLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        controller: _page,
-        onPageChanged: ((value) {
-          setState(() {
-            currentPage = value;
-          });
-        }),
-        children: <Widget>[HomePage(), AppointmentPage(), FastCheckPage()],
-      ),
+          controller: _page,
+          onPageChanged: ((value) {
+            setState(() {
+              currentPage = value;
+            });
+          }),
+          children: <Widget>[
+            HomePage(),
+            AppointmentPage(),
+            FastCheckPage(),
+            const TabsScreen(),
+          ]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPage,
         onTap: (page) {
@@ -53,6 +61,10 @@ class _MainLayoutState extends State<MainLayout> {
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.arrowUp),
             label: 'Fast Check',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.pizzaSlice),
+            label: 'Meals',
           )
         ],
       ),
