@@ -31,10 +31,6 @@ In order to run the app, follow these steps:
 * To start the app by typing `flutter run` command, it is recommended to run it through an android emulator in order to visualize the UI properly.
 * In a different terminal, run `cd flask-app` command (activate the virtual envrionment before if you use any) then type `python app.py`
 
-## Note
-
-In order to see the work used in coding the Feedforward Neural Network used in predictive analysis and preprocessing & EDA that was required before this step, you may find it in the Jupyter Notebook named Application_Dataset_EDA_&_ML_Model in `notebooks` folder in the repository.
-
 
 ## Citation
 
