@@ -4,6 +4,7 @@ import 'package:phase_1_app/data/data.dart';
 import 'package:phase_1_app/screens/groups.dart';
 import 'package:phase_1_app/screens/meals.dart';
 import 'package:phase_1_app/screens/tabs.dart';
+import 'package:phase_1_app/screens/ubd.dart';
 import 'package:phase_1_app/utils/text.dart';
 import '../screens/meeting_page.dart';
 import '../screens/home.dart';
@@ -21,22 +22,25 @@ class _MainLayoutState extends State<MainLayout> {
   //variable declaration
   int currentPage = 0;
   final PageController _page = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-          controller: _page,
-          onPageChanged: ((value) {
-            setState(() {
-              currentPage = value;
-            });
-          }),
-          children: <Widget>[
-            HomePage(),
-            AppointmentPage(),
-            FastCheckPage(),
-            const TabsScreen(),
-          ]),
+        controller: _page,
+        onPageChanged: ((value) {
+          setState(() {
+            currentPage = value;
+          });
+        }),
+        children: <Widget>[
+          HomePage(),
+          AppointmentPage(),
+          FastCheckPage(),
+          const TabsScreen(),
+          UBDPage(), // Assuming you have a UBDPage
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPage,
         onTap: (page) {
@@ -65,7 +69,12 @@ class _MainLayoutState extends State<MainLayout> {
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.pizzaSlice),
             label: 'Meals',
-          )
+          ),
+          BottomNavigationBarItem(
+            // Choose an appropriate icon for UBD, like capsules or prescription bottle
+            icon: FaIcon(FontAwesomeIcons.capsules),
+            label: 'UBD',
+          ),
         ],
       ),
     );
