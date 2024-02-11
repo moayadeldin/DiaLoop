@@ -30,7 +30,7 @@ class _TabsScreenState extends State<TabsScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1), // Duration can be adjusted
+      duration: Duration(seconds: 1),
     );
   }
 

@@ -5,7 +5,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load your trained model
-model = load_model(r'C:\Users\Moayad\Downloads\Flutter App - Phase 1\flask-app\NN_deployed_in_app.h5')
+model = load_model(r"E:\Work\Graduation Project\Last Semester isA Work\app-diabetes-monitoring\flask-app\NN_deployed_in_app.h5")
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -24,4 +24,4 @@ def predict():
     return jsonify({'prediction': prediction_value})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=False)

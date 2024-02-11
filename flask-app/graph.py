@@ -5,7 +5,6 @@ from serial.serialutil import SerialException
 app = Flask(__name__)
 numbers_received = []
 
-# Setup the serial connection when the script starts
 try:
     ser = serial.Serial('COM11', 38400)
     ser.flushInput()
@@ -13,12 +12,11 @@ except SerialException as e:
     print(f"Failed to connect to the serial port: {e}")
     ser = None
 
-@app.route('/random_number', methods=['GET'])
+@app.route('/conc_number', methods=['GET'])
 def read_from_bluetooth():
     if ser:
         try:
             line = ser.readline().decode('iso8859-1').strip()
-            # Convert the line to float and handle infinity
             number_float = float(line)
             if number_float == float('inf'):
                 number_float = 0
@@ -37,8 +35,7 @@ def read_from_bluetooth():
 
 if __name__ == '__main__':
     try:
-        app.run(debug=False)
+        app.run(host='0.0.0.0', port=5000, debug=False)
     finally:
-        # Close the serial connection when the script ends
         if ser and ser.is_open:
             ser.close()

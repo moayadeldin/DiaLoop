@@ -13,8 +13,6 @@ class FastCheckPage extends StatefulWidget {
 }
 
 class _FastCheckPageState extends State<FastCheckPage> {
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
   var result = 0;
   String predictionResult = "";
@@ -32,20 +30,16 @@ class _FastCheckPageState extends State<FastCheckPage> {
     )
   ]);
 
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
   final List<TextEditingController> controllers =
       List<TextEditingController>.generate(
-          9,
-          (index) =>
-              TextEditingController()); // Nine controllers for nine fields
+          9, (index) => TextEditingController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Fast Check'),
-        backgroundColor: Config.primaryColor, // set the AppBar color
+        backgroundColor: Config.primaryColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -90,30 +84,25 @@ class _FastCheckPageState extends State<FastCheckPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20), // Providing some spacing
+                SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      // Collect all the values
                       List<double> inputValues = controllers.map((controller) {
                         return double.parse(controller.text);
                       }).toList();
 
                       var url =
-                          'http://10.0.2.2:5000/predict'; // URL to your Flask server
+                          'http://10.112.228.18:5001/predict'; // URL to your Flask server to be updated according to IP address
                       var response = await http.post(
                         Uri.parse(url),
-                        headers: {
-                          "Content-Type": "application/json"
-                        }, // Indicate that you're sending JSON data
-                        body: json.encode(
-                            {'input': inputValues}), // Convert list to JSON
+                        headers: {"Content-Type": "application/json"},
+                        body: json.encode({'input': inputValues}),
                       );
 
                       if (response.statusCode == 200) {
-                        // If server returns a 200 OK response
                         var result = jsonDecode(response.body)['prediction'];
-                        // Decide the color and message based on the result
+
                         if (result < 0.5) {
                           predictionResult =
                               'Your current results suggest the case is Non Diabetic';
@@ -141,10 +130,7 @@ class _FastCheckPageState extends State<FastCheckPage> {
                   child: Text('Predict'),
                   style: ElevatedButton.styleFrom(primary: Config.primaryColor),
                 ),
-                // Add some spacing
                 SizedBox(height: 20),
-
-                // Add the container to display the prediction result
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(16),
@@ -175,10 +161,8 @@ class _FastCheckPageState extends State<FastCheckPage> {
       children: [
         Text(label1, style: TextStyle(fontWeight: FontWeight.bold)),
         Container(
-          // Wrap TextFormField in a Container to adjust width and height
-          width: MediaQuery.of(context).size.width *
-              0.2, // 20% of the screen width
-          height: 50, // Increased height
+          width: MediaQuery.of(context).size.width * 0.2,
+          height: 50,
           child: Center(
             child: TextFormField(
               controller: controller,

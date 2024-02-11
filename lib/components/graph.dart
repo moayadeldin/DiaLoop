@@ -13,12 +13,12 @@ class LineChartWidget extends StatefulWidget {
 
 class _LineChartWidgetState extends State<LineChartWidget>
     with AutomaticKeepAliveClientMixin {
-  List<FlSpot> _spots = []; // Initialize with an empty list
-  final int maxPoints = 10; // Maximum number of points to display
+  List<FlSpot> _spots = [];
+  final int maxPoints = 10;
   DateTime now = DateTime.now();
 
   @override
-  bool get wantKeepAlive => true; // This ensures the state is kept alive
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -32,31 +32,30 @@ class _LineChartWidgetState extends State<LineChartWidget>
       now = DateTime.now();
       _spots.add(FlSpot(_spots.length.toDouble(), newReading.toDouble()));
       if (_spots.length > maxPoints) {
-        _spots.removeAt(0); // Remove the oldest point to limit total number
+        _spots.removeAt(0);
       }
     });
   }
 
   Future<int> _fetchNumber() async {
     try {
-      var url = "http://10.0.2.2:5000/random_number"; // Your API endpoint
+      var url =
+          "http://10.112.228.18:5000/random_number"; // URL to your Flask server to be updated according to IP address
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        // Parse the number and ensure it is non-nullable
         int number =
             json.decode(response.body)['concentration_reading'] as int? ?? 0;
         return number;
       } else {
-        return -1; // Return a special value to indicate an error
+        return -1;
       }
     } catch (e) {
       print('Error: $e');
-      return -1; // Return a special value to indicate an error
+      return -1;
     }
   }
 
-  // Function to show the latest reading in a dialog
   void _showLatestReading() {
     if (_spots.isNotEmpty) {
       final latestReading = _spots.last.y;
@@ -81,7 +80,6 @@ class _LineChartWidgetState extends State<LineChartWidget>
         },
       );
     } else {
-      // Handle case when there are no readings
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -200,14 +198,13 @@ class _LineChartWidgetState extends State<LineChartWidget>
 
   Widget _buildChart() {
     if (_spots.isEmpty) {
-      return Center(
-          child: CircularProgressIndicator()); // Show a loading indicator
+      return Center(child: CircularProgressIndicator());
     }
 
     double minY = _spots.map((spot) => spot.y).reduce(min);
     double maxY = _spots.map((spot) => spot.y).reduce(max);
-    minY = minY - 5; // Add some padding below the minimum value
-    maxY = maxY + 5; // Add some padding above the maximum value
+    minY = minY - 5;
+    maxY = maxY + 5;
 
     return Container(
       decoration: BoxDecoration(

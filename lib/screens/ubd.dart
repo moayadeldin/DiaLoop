@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase_1_app/utils/config.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'dart:convert';
 
 class UBDPage extends StatefulWidget {
@@ -12,15 +11,17 @@ class UBDPage extends StatefulWidget {
 }
 
 class _UBDPageState extends State<UBDPage> {
+  // Inputs to be received from the user
+
   final TextEditingController tddController =
       TextEditingController(text: 'TDD');
   final TextEditingController wtController = TextEditingController(text: 'WT');
   final TextEditingController tbgController =
       TextEditingController(text: 'TBG');
 
-  double latestUBD = 0.0; // Variable to store the latest UBD reading
+  double latestUBD = 0.0;
   double LIT = 0;
-  DateTime? lastUBDUpdate; // Timestamp of the last UBD update
+  DateTime? lastUBDUpdate;
 
   String? selectedActivity;
   String? selectedMeal;
@@ -42,16 +43,17 @@ class _UBDPageState extends State<UBDPage> {
 
   Future<int> _fetchLatestCBG() async {
     try {
-      var url = "http://10.0.2.2:5000/random_number";
+      var url =
+          "http://10.0.2.2:5000/conc_number"; // Change according to your Flask API
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         if (data['concentration_reading'] != null &&
             data['concentration_reading'] is int) {
-          return data['concentration_reading']; // Return the CBG value
+          return data['concentration_reading'];
         } else {
-          return 0; // Set a default value if the value is null or not an integer
+          return 0;
         }
       } else {
         return 0; // Set to 0 in case of a non-200 response
@@ -62,17 +64,17 @@ class _UBDPageState extends State<UBDPage> {
     }
   }
 
-  // Method to show the popup for LIT value input
+  // Show the popup for LIT value input if user to enter his LIT for the first time
   Future<void> _showLITPopup() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // User must tap button to close the dialog
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Enter LIT Value For the First Time'),
           content: TextField(
             onChanged: (value) {
-              // You can use this value to update LIT
+              //
               LIT = double.tryParse(value) ?? 0.0;
             },
             keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -82,9 +84,8 @@ class _UBDPageState extends State<UBDPage> {
             TextButton(
               child: Text('Confirm'),
               onPressed: () {
-                // Close the dialog and proceed with calculations
                 Navigator.of(context).pop();
-                _calculateAndShowUBD(); // Recalculate with new LIT value
+                _calculateAndShowUBD();
               },
             ),
           ],
@@ -92,6 +93,8 @@ class _UBDPageState extends State<UBDPage> {
       },
     );
   }
+
+  // Show the popup for UBD value input if user to enter his UBD for the first time
 
   Future<void> _showLatestUBDPopup() async {
     return showDialog<void>(
@@ -112,7 +115,7 @@ class _UBDPageState extends State<UBDPage> {
               child: Text('Confirm'),
               onPressed: () {
                 Navigator.of(context).pop();
-                _calculateAndShowUBD(); // Recalculate with new latestUBD value
+                _calculateAndShowUBD();
               },
             ),
           ],
@@ -123,7 +126,7 @@ class _UBDPageState extends State<UBDPage> {
 
   void _sendUBDToESP32(int ubd) async {
     try {
-      var url = Uri.parse('http://10.112.224.57/data'); // ESP32 IP Address
+      var url = Uri.parse('http://10.112.224.57/data'); // ESP32 WiFi IP Address
       var response = await http.post(url, body: 'UBD Value: $ubd');
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
@@ -133,24 +136,20 @@ class _UBDPageState extends State<UBDPage> {
   }
 
   void _calculateAndShowUBD() async {
-    final int CBG = await _fetchLatestCBG();
-    // Fetch the latest CBG reading
-    print(CBG);
+    final int CBG = 120;
+
+    // If it is the first time user open the application then show the pop-ups to enter LIT & UBD
 
     if (LIT == 0) {
       await _showLITPopup();
-      return; // Return here to stop further execution until LIT is updated
-    }
-
-    if (latestUBD == 0.0) {
-      await _showLatestUBDPopup();
-      return; // Return here to stop further execution until latestUBD is updated
-    }
-
-    if (selectedMeal == null) {
-      // Show error or handle the case when meal selection is not made
       return;
     }
+    if (latestUBD == 0.0) {
+      await _showLatestUBDPopup();
+      return;
+    }
+
+    // Internal calculations according to paper equation
 
     final double tdd = double.tryParse(tddController.text) ?? 0;
     final double wt = double.tryParse(wtController.text) ?? 0;
@@ -167,7 +166,7 @@ class _UBDPageState extends State<UBDPage> {
 
     final double CD = (CBG - TBG) / SF;
 
-    print(icAverage);
+    print('IC Average $icAverage');
 
     print('FD value: $fd');
 
@@ -179,10 +178,8 @@ class _UBDPageState extends State<UBDPage> {
       LIT = timeDifference.inHours.toDouble();
     }
 
-    // Calculate IOB (Insulin On Board)
     final double iob = latestUBD * (1 - LIT / 5) * 0.2;
 
-    // Calculate UBD
     final double ubd = (fd + CD - iob) * AM;
 
     print('LIT Value $LIT');
@@ -194,7 +191,7 @@ class _UBDPageState extends State<UBDPage> {
     latestUBD = ubd;
     lastUBDUpdate = DateTime.now();
 
-    // Display UBD to user and handle confirmation
+    // Show the UBD
     _showUBDConfirmationDialog(ubd.round());
   }
 
@@ -205,25 +202,26 @@ class _UBDPageState extends State<UBDPage> {
         return AlertDialog(
           title: Text('UBD Confirmation'),
           content: Text(
-              'Your UBD is $ubd, do you want to confirm this dosage as your next insulin dosage?'),
+              'Your UBD is $ubd Units of Insulin dosage, do you want to confirm this insulin dosage to be injected?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                _sendUBDToESP32(ubd); // Send UBD to ESP32
-                Navigator.of(context).pop(); // Close the dialog
+                _sendUBDToESP32(
+                    ubd); // Send UBD TO ESP-32 as the injection dosage
+                Navigator.of(context).pop();
               },
               child: const Text('Confirm'),
               style: TextButton.styleFrom(
-                primary: Colors.green, // Text color
+                primary: Colors.green,
               ),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: const Text('Reconsider'),
               style: TextButton.styleFrom(
-                primary: Colors.red, // Text color
+                primary: Colors.red,
               ),
             ),
           ],
