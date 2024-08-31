@@ -2,7 +2,17 @@
 
 Android/iOS Application offering diabetes monitoring, management and prediction allowing the patient to actively get insights of his current health state. 
 
-The implementation ensured deploying Deep Learning techniques to enhance the prediction ability based on the patient data.
+## App Demo
+
+
+https://github.com/user-attachments/assets/d994b253-01af-4016-9b2f-cb2d034f42ae
+
+
+## Real-Time Integration Demo
+
+https://github.com/user-attachments/assets/1c7ddab1-5636-4c08-b777-871e85fc58ef
+
+
 
 ## Features
 
@@ -11,26 +21,31 @@ The implementation ensured deploying Deep Learning techniques to enhance the pre
 3. Manage your dates with potential caretakers (UI-based implementation)
 4. Predict your current Diabetic status by providing BGL, age, temperature and a set of other features.
 
-## Installation
+## How to Install
 
-In order to run the app, follow these steps:
-1. Clone repository
-2. Change directory to project's directory
-`git clone https://github.com/moayadeldin/app-diabetes-monitoring` then `cd app-diabetes-monitoring`
-3. You need to have Flutter installed in your device in order to run the application properly, if not you can follow with their documentation [here](https://docs.flutter.dev/get-started/install)
-4. In order to use the predictive ML-based feature, you need to install Flask API and the required packages.
+1. Clone repo and navigate the project:
+   ```bash
+   git clone https://github.com/moayadeldin/app-diabetes-monitoring
+
+   cd app-diabetes-monitoring
+
+   ```
    
-   4.1 Change directory to flask-api directory through `cd flask-app`
-
-   4.2 Install the required packages through the command `pip install -r requirements.txt` 
-
-   Note:  For step 4.2 it is recommended to use a virtual environment in order to avoid any OS-related errers.
-   
-## Usage
-
-* To start the app by typing `flutter run` command, it is recommended to run it through an android emulator in order to visualize the UI properly.
-* In a different terminal, run `cd flask-app` command (activate the virtual envrionment before if you use any) then type `python app.py`
-
+2. You need to have Flutter installed in your device in order to run the application properly, if not you can follow with their documentation [here](https://docs.flutter.dev/get-started/install)
+3. To use the Diabetes Prediction feature, you need to install Flask API on your device and the required packages:
+   ```bash
+   cd flask-app
+   pip install -r requirements.txt
+   ```
+4. To run the app:
+   ```bash
+   flutter run
+   ```
+4.1 In a different terminal, run the following to put the Diabetes Prediction feature to work:
+```bash
+cd flask-app
+python app.py
+```
 
 ## Citation
 
