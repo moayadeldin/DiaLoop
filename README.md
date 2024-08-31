@@ -41,12 +41,12 @@ https://github.com/user-attachments/assets/1c7ddab1-5636-4c08-b777-871e85fc58ef
    ```bash
    flutter run
    ```
-4.1 In a different terminal, run the following to put the Diabetes Prediction feature to work:
+and in a different terminal, run the following to put the Diabetes Prediction feature to work:
 ```bash
 cd flask-app
 python app.py
 ```
 
-## Citation
+## References
 
 Deepali Javale, Sharmishta Desai, July 7, 2021, "Dataset for People for their Blood Glucose Level with their Superficial body feature readings.", IEEE Dataport, doi: https://dx.doi.org/10.21227/c4pp-6347.
