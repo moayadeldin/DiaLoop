@@ -21,7 +21,7 @@ data belonging to one class, such bias in a binary classification approach eithe
 of the model.
 
 As a result, we decided to apply SMOTE (Synthetic Minority Oversampling Technique) which generates new instances of the minority class. SMOTE works by selecting examples that are close in the feature space and
-is proved to be effective in similar research related to diabetic mellitus prediction as shown [here](https://www.nature.com/articles/s41598-023-40036-5) where their results showed that classification after they applied different resampling techniques, including SMOTE, reached better results than on the original imbalanced dataset.
+is proved to be effective in similar research related to diabetic mellitus prediction as shown [here](https://www.nature.com/articles/s41598-023-40036-5). Their results showed that classification after they applied different resampling techniques, including SMOTE, reached better results than on the original imbalanced dataset.
 
 The shown network was run for 10 epochs, with each epoch running on a batch size of 64. The activation functions used were ReLU as shown in the figure with the Loss function being Binary Cross-entropy. Accuracy achieved on the test set was 94.62%.
 
