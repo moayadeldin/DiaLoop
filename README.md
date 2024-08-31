@@ -37,15 +37,12 @@ https://github.com/user-attachments/assets/1c7ddab1-5636-4c08-b777-871e85fc58ef
    cd flask-app
    pip install -r requirements.txt
    ```
-4. To run the app:
+4. To run the app and in a different terminal, run the following to put the Diabetes Prediction feature to work::
    ```bash
    flutter run
+   cd flask-app
+   python app.py
    ```
-and in a different terminal, run the following to put the Diabetes Prediction feature to work:
-```bash
-cd flask-app
-python app.py
-```
 
 ## References
 
