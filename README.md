@@ -25,8 +25,6 @@ is proved to be effective in similar research related to diabetic mellitus predi
 
 The shown network was run for 10 epochs, with each epoch running on a batch size of 64. The activation functions used were ReLU as shown in the figure with the Loss function being Binary Cross-entropy. Accuracy achieved on the test set was 94.62%.
 
-![dialoop_ffnn_architecture](https://github.com/user-attachments/assets/e9cbc9cc-d89f-49d1-ab71-6ba15d82ef96)
-
 
 ## Features
 
